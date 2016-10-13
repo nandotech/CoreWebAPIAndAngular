@@ -15,11 +15,13 @@ var CustomersComponent = (function () {
         this.customersService = customersService;
     }
     CustomersComponent.prototype.ngOnInit = function () {
+        this.getCustomers();
     };
     CustomersComponent.prototype.getCustomers = function () {
         var _this = this;
         this.customersService.getCustomers()
             .subscribe(function (custs) { return _this.dumpData(custs); });
+        setTimeout(function () { return _this.getCustomers(); }, 10000);
     };
     CustomersComponent.prototype.getCustomersWithPromise = function () {
         var _this = this;

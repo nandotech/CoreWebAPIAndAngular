@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { CustomersService } from '../shared/customers.service';
 import { ICustomer } from '../shared/interfaces';
 
@@ -16,12 +15,13 @@ export class CustomersComponent implements OnInit {
     constructor(private customersService: CustomersService) { }
 
     ngOnInit() { 
-        
+        this.getCustomers();
     }
 
     getCustomers() {
         this.customersService.getCustomers()
             .subscribe((custs: ICustomer[]) => this.dumpData(custs));
+        setTimeout(() => this.getCustomers(), 10000);
     }
 
     getCustomersWithPromise() {

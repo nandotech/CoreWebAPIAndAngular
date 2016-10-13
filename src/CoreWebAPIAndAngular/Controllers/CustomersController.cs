@@ -22,7 +22,7 @@ namespace CoreWebAPIAndAngular.Controllers
         //[HttpGet]
         [ProducesResponseType(typeof(List<Customer>), 200)]
         [ProducesResponseType(typeof(List<Customer>), 404)]
-        public ActionResult Get()
+        public async Task<ActionResult> Get()
         {
             if (_customers == null)
             {
@@ -35,13 +35,15 @@ namespace CoreWebAPIAndAngular.Controllers
         [HttpGet("{id}", Name = "GetCustomerRoute")]
         [ProducesResponseType(typeof(Customer), 200)]
         [ProducesResponseType(typeof(Customer), 404)]
-        public ActionResult Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
             var cust = _customers.Where(c => c.Id == id).SingleOrDefault();
             if (cust == null)
             {
+                
                 return NotFound("Customer not found!");
             }
+
             return Ok(cust);
         }
 
@@ -62,8 +64,9 @@ namespace CoreWebAPIAndAngular.Controllers
             postedCustomer.Id = newId;
             _customers.Add(postedCustomer);
 
-            return CreatedAtRoute("GetCustomerRoute",
-                new { id = postedCustomer.Id }, postedCustomer);
+            //return CreatedAtRoute("GetCustomerRoute",
+            //  new { id = postedCustomer.Id }, postedCustomer);
+            return Ok(_customers);
         }
 
         // PUT api/customers/5

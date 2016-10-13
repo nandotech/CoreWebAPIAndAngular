@@ -13,8 +13,9 @@ export class CustomersService {
 
     url: string = '/api/customers';
 
-    constructor(private http: Http) { }
-    
+    constructor(private http: Http) {    }
+
+
     getCustomers(): Observable<ICustomer[]> {
         return this.http.get(this.url)
             .map((resp: Response) => resp.json())
